@@ -31,7 +31,7 @@ const getAllStation = async (req, res) => {
   }
 }
 
-const getDetailsStation = async (req, res) => {
+const detailsStation = async (req, res) => {
   try {
     const stationId = req.params.id
     if (!stationId) {
@@ -81,7 +81,7 @@ const createStation = async (req, res) => {
 module.exports = {
   createStation,
   updateStation,
-  getDetailsStation,
+  detailsStation,
   getAllStation,
   deleteStation
 }

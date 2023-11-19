@@ -7,9 +7,9 @@ const {
 } = require('../middleware/authMiddlewave')
 
 router.post('/create', vehicleController.createVehicle)
-// router.put('/update/:id',authMiddleWare, tripController.updateTrip)
-// router.get('/details/:id', tripController.getDetailsTrip)
-// router.get('/all', tripController.getAllTrip)
-// router.delete('/delete/:id', tripController.deleteTrip)
+router.put('/update/:id', vehicleController.updateVehicle)
+router.get('/details/:id', vehicleController.getDetailsVehicle)
+router.get('/all', vehicleController.getAllVehicle)
+router.delete('/delete/:id', vehicleController.deleteVehicle)
 
 module.exports = router
