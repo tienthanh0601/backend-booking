@@ -2,14 +2,17 @@ const Trip = require('../models/TripModel')
 
 const createTrip = (newTrip) => {
   return new Promise(async (resolve, reject) => {
-    const { from, to, day, timeStart, timeEnd } = newTrip
+    const { from, to, day, timeStart, timeEnd, price, points, vehicle } =
+      newTrip
     try {
       const createdTrip = await Trip.create({
         from,
         to,
         day,
         timeStart,
-        timeEnd
+        timeEnd,
+        points,
+        vehicle
       })
       if (createdTrip) {
         resolve({

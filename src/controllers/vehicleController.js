@@ -9,7 +9,7 @@ const deleteVehicle = async (req, res) => {
         message: 'The pointId is required'
       })
     }
-    const response = await VehicleService.deleteVehicle(pointId)
+    const response = await VehicleService.deleteVehicle(vehicleId)
     return res.status(200).json(response)
   } catch (e) {
     console.log(e)
@@ -69,7 +69,7 @@ const updateVehicle = async (req, res) => {
 }
 
 const createVehicle = async (req, res) => {
-  const { name, address, point } = req.body
+  const { name, floor, type, totalSeat } = req.body
   try {
     const response = await VehicleService.createVehicle(req.body)
     return res.status(200).json(response)

@@ -23,7 +23,7 @@ const deleteVehicle = (id) => {
   })
 }
 
-const getAllVehicle = (id) => {
+const getAllVehicle = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const allVehicle = await Vehicle.find()

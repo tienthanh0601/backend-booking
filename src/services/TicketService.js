@@ -1,18 +1,18 @@
-const Station = require('../models/Station')
+const Ticket = require('../models/Tickets')
 
-const deleteStation = (id) => {
+const deleteTicket = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const checkStation = await Station.findOne({
+      const checkTicket = await Ticket.findOne({
         _id: id
       })
-      if (checkStation === null) {
+      if (checkTicket === null) {
         resolve({
           status: 'ERR',
-          message: 'The user is not defined'
+          message: 'The Ticket is not defined'
         })
       }
-      await Station.findByIdAndDelete(id)
+      await Ticket.findByIdAndDelete(id)
       resolve({
         status: 'OK',
         message: 'delete SUCCESS'
@@ -23,14 +23,14 @@ const deleteStation = (id) => {
   })
 }
 
-const getAllStation = (id) => {
+const getAllTicket = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const allStation = await Station.find()
+      const allTicket = await Ticket.find()
       resolve({
         status: 'OK',
         message: 'get all point',
-        data: allStation
+        data: allTicket
       })
     } catch (e) {
       reject(e)
@@ -38,13 +38,13 @@ const getAllStation = (id) => {
   })
 }
 
-const getDetailsStation = (id) => {
+const getDetailsTicket = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const station = await Station.findOne({
+      const ticket = await Ticket.findOne({
         _id: id
       })
-      if (station === null) {
+      if (ticket === null) {
         resolve({
           status: 'ERR',
           message: 'The point is not defined'
@@ -53,7 +53,7 @@ const getDetailsStation = (id) => {
       resolve({
         status: 'OK',
         message: 'SUCESS',
-        data: station
+        data: ticket
       })
     } catch (e) {
       reject(e)
@@ -61,25 +61,25 @@ const getDetailsStation = (id) => {
   })
 }
 
-const updateStation = (id, data) => {
+const updateTicket = (id, data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const checkStation = await Station.findOne({
+      const checkTicket = await Ticket.findOne({
         _id: id
       })
-      if (checkStation === null) {
+      if (checkTicket === null) {
         resolve({
           status: 'ERR',
           message: 'The point is not defined'
         })
       }
-      const updatedStation = await Station.findByIdAndUpdate(id, data, {
+      const updatedTicket = await Ticket.findByIdAndUpdate(id, data, {
         new: true
       })
       resolve({
         status: 'OK',
         message: 'SUCCESS',
-        data: updatedStation
+        data: updatedTicket
       })
     } catch (e) {
       reject(e)
@@ -87,20 +87,20 @@ const updateStation = (id, data) => {
   })
 }
 
-const createStation = (newStation) => {
+const createTicket = (newTicket) => {
   return new Promise(async (resolve, reject) => {
-    const { name, address, province } = newStation
+    const { user, trip, isPaid } = newTicket
     try {
-      const createdStation = await Station.create({
-        name,
-        address,
-        province
+      const createdTicket = await Ticket.create({
+        user,
+        trip,
+        isPaid
       })
-      if (createdStation) {
+      if (createdTicket) {
         resolve({
           status: 'OK',
           message: 'SUCCESS',
-          data: createdStation
+          data: createdTicket
         })
       }
     } catch (e) {
@@ -110,9 +110,9 @@ const createStation = (newStation) => {
 }
 
 module.exports = {
-  createStation,
-  updateStation,
-  getDetailsStation,
-  getAllStation,
-  deleteStation
+  createTicket,
+  updateTicket,
+  getDetailsTicket,
+  getAllTicket,
+  deleteTicket
 }

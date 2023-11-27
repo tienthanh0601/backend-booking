@@ -4,13 +4,15 @@ const ticketSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true
+      ref: 'User'
     },
     trip: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Trip',
-      required: true
+      ref: 'Trip'
+    },
+    seatId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Seat'
     },
     isPaid: {
       type: Boolean,

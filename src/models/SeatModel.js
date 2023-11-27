@@ -3,28 +3,20 @@ const mongoose = require('mongoose')
 const seatSchema = new mongoose.Schema({
   vehicle: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vehicle',
-    required: true
+    ref: 'Vehicle'
   },
   name: {
     type: String,
     required: true
   },
   floor: {
-    type: Number,
-    required: true
+    type: Number
   },
   type: {
-    type: String,
-    required: true
+    type: String
   },
   price: {
-    type: Number,
-    required: true
-  },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    type: Number
   },
   isBooked: {
     type: Boolean,

@@ -9,12 +9,10 @@ const stationSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  points: [
-    {
-      id: { type: mongoose.Types.ObjectId, required: true, ref: 'Point' },
-      isTarget: { type: Boolean, required: true }
-    }
-  ]
+  province: {
+    type: String,
+    required: true
+  }
 })
 
 const Station = mongoose.model('Station', stationSchema)

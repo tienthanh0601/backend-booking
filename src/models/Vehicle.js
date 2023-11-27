@@ -10,12 +10,10 @@ const vehicleSchema = new mongoose.Schema({
     required: true
   },
   floor: {
-    type: Number,
-    required: true
+    type: Number
   },
   totalSeat: {
-    type: Number,
-    required: true
+    type: Number
   }
 })
 

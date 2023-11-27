@@ -3,46 +3,67 @@ const mongoose = require('mongoose')
 const tripSchema = new mongoose.Schema({
   from: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Station',
-    required: true
+    ref: 'Station'
   },
   to: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Station',
-    required: true
+    ref: 'Station'
   },
   day: {
-    type: Date,
-    required: true
+    type: Date
   },
   timeStart: {
-    type: String,
-    required: true
+    type: String
   },
   timeEnd: {
-    type: String,
-    required: true
+    type: String
   },
   price: {
-    type: Number,
-    required: true
+    type: Number
   },
   status: {
     type: String
   },
   vehicle: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vehicle',
-    required: true
+    ref: 'Vehicle'
   },
   points: [
     {
-      id: { type: mongoose.Types.ObjectId, required: true, ref: 'Point' },
-      time: { type: String },
-      isPick: { type: Boolean }
-      // ispick neu true diem don , false diem tra
+      PickUpPointId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Point'
+      },
+      DropOffPointId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Point'
+      },
+      timeDropOff: {
+        type: String
+      },
+      timePickUp: {
+        type: String
+      }
     }
   ]
+  // points: [
+  //   {
+  //     diemdon: [
+  //       {
+  //         pointUp: QuảngNgãi,
+  //         timeUp: { type: String }
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     diemtra: [
+  //       {
+  //         pointDown: QuyNhơn,
+  //         timeDown: { type: String }
+  //       }
+  //     ]
+  //   }
+  // ]
 })
 
 const Trip = mongoose.model('Trip', tripSchema)

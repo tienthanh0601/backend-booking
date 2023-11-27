@@ -1,10 +1,15 @@
-const TripService = require('../services/TripService')
+const SeatService = require('../services/SeatService')
 
-const createTrip = async (req, res) => {
-  const { from, to, day, timeStart, timeEnd, vehicle, points } = req.body
-  console.log('req:', req.body.points)
+const createSeat = async (req, res) => {
+  const { vehicle, name, type, price,  isBooked } = req.body
   try {
-    const response = await TripService.createTrip(req.body)
+    if (!vehicle || !name || !type || !price) {
+      return res.status(200).json({
+        status: 'err',
+        message: 'The input is required'
+      })
+    }
+    const response = await SeatService.createSeat(req.body)
     return res.status(200).json(response)
   } catch (e) {
     return res.status(404).json({
@@ -13,17 +18,17 @@ const createTrip = async (req, res) => {
   }
 }
 
-const updateTrip = async (req, res) => {
+const updateSeat = async (req, res) => {
   try {
-    const tripId = req.params.id
+    const seatId = req.params.id
     const data = req.body
-    if (!tripId) {
+    if (!seatId) {
       return res.status(200).json({
         status: 'ERR',
         message: 'The userId is required'
       })
     }
-    const response = await TripService.updateTrip(tripId, data)
+    const response = await SeatService.updateSeat(seatId, data)
     return res.status(200).json(response)
   } catch (e) {
     console.log(e)
@@ -33,16 +38,16 @@ const updateTrip = async (req, res) => {
   }
 }
 
-const getDetailsTrip = async (req, res) => {
+const getDetailsSeat = async (req, res) => {
   try {
-    const tripId = req.params.id
-    if (!tripId) {
+    const seatId = req.params.id
+    if (!seatId) {
       return res.status(200).json({
         status: 'ERR',
         message: 'The userId is required'
       })
     }
-    const response = await TripService.getDetailsTrip(tripId)
+    const response = await SeatService.getDetailsSeat(seatId)
     return res.status(200).json(response)
   } catch (e) {
     return res.status(404).json({
@@ -51,16 +56,16 @@ const getDetailsTrip = async (req, res) => {
   }
 }
 
-const deleteTrip = async (req, res) => {
+const deleteSeat = async (req, res) => {
   try {
-    const tripId = req.params.id
-    if (!tripId) {
+    const seatId = req.params.id
+    if (!seatId) {
       return res.status(200).json({
         status: 'ERR',
         message: 'The tripId is required'
       })
     }
-    const response = await TripService.deleteTrip(tripId)
+    const response = await SeatService.deleteSeat(seatId)
     return res.status(200).json(response)
   } catch (e) {
     console.log(e)
@@ -70,15 +75,9 @@ const deleteTrip = async (req, res) => {
   }
 }
 
-const getAllTrip = async (req, res) => {
+const getAllSeat = async (req, res) => {
   try {
-    const { limit, page, sort, filter } = req.body
-    const response = await TripService.getAllTrip(
-      Number(limit) || 8,
-      Number(page) || 0,
-      sort,
-      filter
-    )
+    const response = await SeatService.getAllSeat()
     return res.status(200).json(response)
   } catch (e) {
     console.log(e)
@@ -89,9 +88,9 @@ const getAllTrip = async (req, res) => {
 }
 
 module.exports = {
-  createTrip,
-  updateTrip,
-  getDetailsTrip,
-  deleteTrip,
-  getAllTrip
+  createSeat,
+  updateSeat,
+  getDetailsSeat,
+  deleteSeat,
+  getAllSeat
 }
