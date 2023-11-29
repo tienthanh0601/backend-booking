@@ -6,8 +6,7 @@ const seatSchema = new mongoose.Schema({
     ref: 'Vehicle'
   },
   name: {
-    type: String,
-    required: true
+    type: String
   },
   floor: {
     type: Number

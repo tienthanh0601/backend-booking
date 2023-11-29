@@ -10,8 +10,8 @@ const stationSchema = new mongoose.Schema({
     required: true
   },
   province: {
-    type: String,
-    required: true
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Province'
   }
 })
 

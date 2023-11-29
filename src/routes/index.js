@@ -5,6 +5,7 @@ const PointRouter = require('./PointRouter')
 const VehicleRouter = require('./VehicleRouter')
 const SeatRouter = require('./SeatRouter')
 const TicketRouter = require('./TicketRouter')
+const ProvinceRouter = require('./ProvinceRouter')
 
 const routes = (app) => {
   app.use('/api/user', UserRouter)
@@ -14,6 +15,7 @@ const routes = (app) => {
   app.use('/api/vehicle', VehicleRouter)
   app.use('/api/seat', SeatRouter)
   app.use('/api/ticket', TicketRouter)
+  app.use('/api/province', ProvinceRouter)
 }
 
 module.exports = routes

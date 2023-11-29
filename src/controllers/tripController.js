@@ -51,6 +51,21 @@ const getDetailsTrip = async (req, res) => {
   }
 }
 
+const findTrip = async (req, res) => {
+  try {
+    const tripIdFrom = req.params.id
+    const tripIdTo = req.params.id
+    const vehicleId = req.params.id
+    const day = req.params.id
+    const response = await TripService.findTrip({tripIdFrom , tripIdTo , vehicleId , day})
+    return res.status(200).json(response)
+  } catch (e) {
+    return res.status(404).json({
+      message: e
+    })
+  }
+}
+
 const deleteTrip = async (req, res) => {
   try {
     const tripId = req.params.id
@@ -93,5 +108,6 @@ module.exports = {
   updateTrip,
   getDetailsTrip,
   deleteTrip,
-  getAllTrip
+  getAllTrip,
+  findTrip
 }

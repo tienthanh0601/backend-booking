@@ -9,6 +9,7 @@ const {
 router.post('/create', tripController.createTrip)
 router.put('/update/:id', tripController.updateTrip)
 router.get('/details/:id', tripController.getDetailsTrip)
+router.get('/find-trip', tripController.findTrip)
 router.get('/all', tripController.getAllTrip)
 router.delete('/delete/:id', tripController.deleteTrip)
 

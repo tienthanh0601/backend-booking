@@ -1,7 +1,7 @@
 const SeatService = require('../services/SeatService')
 
 const createSeat = async (req, res) => {
-  const { vehicle, name, type, price,  isBooked } = req.body
+  const { vehicle, name, type, price, isBooked } = req.body
   try {
     if (!vehicle || !name || !type || !price) {
       return res.status(200).json({
@@ -87,10 +87,25 @@ const getAllSeat = async (req, res) => {
   }
 }
 
+const getSeatByVehicle = async (req, res) => {
+  const vehicle = req.params.id
+  console.log(vehicle)
+  try {
+    const response = await SeatService.getSeatByVehicle(vehicle)
+    return res.status(200).json(response)
+  } catch (e) {
+    console.log(e)
+    return res.status(404).json({
+      message: e
+    })
+  }
+}
+
 module.exports = {
   createSeat,
   updateSeat,
   getDetailsSeat,
   deleteSeat,
-  getAllSeat
+  getAllSeat,
+  getSeatByVehicle
 }

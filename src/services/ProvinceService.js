@@ -1,18 +1,18 @@
-const Seat = require('../models/SeatModel')
+const Province = require('../models/Province')
 
-const deleteSeat = (id) => {
+const deleteProvince = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const checkSeat = await Seat.findOne({
+      const checkProvince = await Province.findOne({
         _id: id
       })
-      if (checkSeat === null) {
+      if (checkProvince === null) {
         resolve({
           status: 'ERR',
           message: 'The user is not defined'
         })
       }
-      await Seat.findByIdAndDelete(id)
+      await Province.findByIdAndDelete(id)
       resolve({
         status: 'OK',
         message: 'delete SUCCESS'
@@ -23,14 +23,14 @@ const deleteSeat = (id) => {
   })
 }
 
-const getAllSeat = () => {
+const getAllProvince = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const allSeat = await Seat.find()
+      const allProvince = await Province.find()
       resolve({
         status: 'OK',
         message: 'get all point',
-        data: allSeat
+        data: allProvince
       })
     } catch (e) {
       reject(e)
@@ -38,13 +38,13 @@ const getAllSeat = () => {
   })
 }
 
-const getDetailsSeat = (id) => {
+const detailsProvince = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const seat = await Seat.findOne({
+      const station = await Station.findOne({
         _id: id
       })
-      if (seat === null) {
+      if (station === null) {
         resolve({
           status: 'ERR',
           message: 'The point is not defined'
@@ -53,7 +53,7 @@ const getDetailsSeat = (id) => {
       resolve({
         status: 'OK',
         message: 'SUCESS',
-        data: seat
+        data: station
       })
     } catch (e) {
       reject(e)
@@ -61,42 +61,25 @@ const getDetailsSeat = (id) => {
   })
 }
 
-const getSeatByVehicle = (vehicle) => {
+const updateProvince = (id, data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const seatByVehicle = await Seat.find({
-        vehicle: vehicle
-      })
-      resolve({
-        status: 'OK',
-        message: 'SUCESS',
-        data: seatByVehicle
-      })
-    } catch (e) {
-      reject(e)
-    }
-  })
-}
-
-const updateSeat = (id, data) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const checkSeat = await Seat.findOne({
+      const checkProvince = await Province.findOne({
         _id: id
       })
-      if (checkSeat === null) {
+      if (checkProvince === null) {
         resolve({
           status: 'ERR',
           message: 'The point is not defined'
         })
       }
-      const updatedSeat = await Seat.findByIdAndUpdate(id, data, {
+      const updatedProvince = await Province.findByIdAndUpdate(id, data, {
         new: true
       })
       resolve({
         status: 'OK',
         message: 'SUCCESS',
-        data: updatedSeat
+        data: updatedProvince
       })
     } catch (e) {
       reject(e)
@@ -104,24 +87,18 @@ const updateSeat = (id, data) => {
   })
 }
 
-const createSeat = (newSeat) => {
+const createProvince = (newProvince) => {
   return new Promise(async (resolve, reject) => {
-    const { vehicle, name, floor, type, price, userId, isBooked } = newSeat
+    const { name } = newProvince
     try {
-      const createdSeat = await Seat.create({
-        vehicle,
-        name,
-        floor,
-        type,
-        price,
-        userId,
-        isBooked: false
+      const createdProvince = await Province.create({
+        name
       })
-      if (createdSeat) {
+      if (createdProvince) {
         resolve({
           status: 'OK',
           message: 'SUCCESS',
-          data: createdSeat
+          data: createdProvince
         })
       }
     } catch (e) {
@@ -131,10 +108,9 @@ const createSeat = (newSeat) => {
 }
 
 module.exports = {
-  createSeat,
-  updateSeat,
-  getDetailsSeat,
-  getAllSeat,
-  deleteSeat,
-  getSeatByVehicle
+  createProvince,
+  updateProvince,
+  detailsProvince,
+  getAllProvince,
+  deleteProvince
 }

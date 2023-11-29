@@ -99,6 +99,45 @@ const deleteTrip = (id) => {
   })
 }
 
+const findTrip = ({ tripIdFrom, tripIdTo, vehicleId, day }) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const checkTripIdFrom = await Trip.find({
+        _id: id
+      })
+      const checkTripIdTo = await Trip.find({
+        _id: id
+      })
+      const checkVehicleId = await Trip.find({
+        _id: id
+      })
+      const checkDay = await Trip.find({
+        _id: id
+      })
+
+      if (
+        checkTripIdFrom === null ||
+        checkTripIdTo === null ||
+        checkVehicleId === null ||
+        checkDay === null
+      ) {
+        resolve({
+          status: 'ERR',
+          message: 'The product is not defined'
+        })
+      }
+
+      await Trip.findById(id)
+      resolve({
+        status: 'OK',
+        message: 'Delete product success'
+      })
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+
 const getAllTrip = (limit, page, sort, filter) => {
   return new Promise(async (resolve, reject) => {
     try {
