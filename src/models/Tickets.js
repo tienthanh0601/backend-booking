@@ -6,6 +6,28 @@ const ticketSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
+    name: {
+      type: String
+    },
+    phone: {
+      type: Number
+    },
+    total: {
+      type: Number
+    },
+    email: {
+      type: String
+    },
+
+    pickedPoint: {
+      type: mongoose.Types.ObjectId,
+      ref: 'Point'
+    },
+
+    droppedPoint: {
+      type: mongoose.Types.ObjectId,
+      ref: 'Point'
+    },
     trip: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Trip'

@@ -53,11 +53,14 @@ const getDetailsTrip = async (req, res) => {
 
 const findTrip = async (req, res) => {
   try {
-    const tripIdFrom = req.params.id
-    const tripIdTo = req.params.id
-    const vehicleId = req.params.id
-    const day = req.params.id
-    const response = await TripService.findTrip({tripIdFrom , tripIdTo , vehicleId , day})
+    console.log(req.body);
+    const { fromId, toId, date } = req.body
+
+    const response = await TripService.findTrip({ 
+      fromId,
+      toId,
+      date
+    })
     return res.status(200).json(response)
   } catch (e) {
     return res.status(404).json({

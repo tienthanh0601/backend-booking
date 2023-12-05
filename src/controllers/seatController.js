@@ -101,6 +101,8 @@ const getSeatByVehicle = async (req, res) => {
   }
 }
 
+
+
 module.exports = {
   createSeat,
   updateSeat,

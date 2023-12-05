@@ -109,6 +109,10 @@ const createStation = (newStation) => {
   })
 }
 
+// Find station by from & to for search
+
+
+
 module.exports = {
   createStation,
   updateStation,

@@ -61,6 +61,31 @@ const getDetailsTicket = (id) => {
   })
 }
 
+const getTicketsById = (userId) => {
+  return new Promise(async (resolve, reject) => {
+    console.log('id', userId)
+    try {
+      const ticket = await Ticket.find({
+        user: userId
+      })
+      console.log(ticket)
+      if (ticket === null) {
+        resolve({
+          status: 'ERR',
+          message: 'The ticket is not defined'
+        })
+      }
+      resolve({
+        status: 'OK',
+        message: 'SUCESS',
+        data: ticket
+      })
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+
 const updateTicket = (id, data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -89,12 +114,30 @@ const updateTicket = (id, data) => {
 
 const createTicket = (newTicket) => {
   return new Promise(async (resolve, reject) => {
-    const { user, trip, isPaid } = newTicket
+    const {
+      user,
+      trip,
+      isPaid,
+      seatId,
+      name,
+      phone,
+      total,
+      email,
+      pickedPoint,
+      droppedPoint
+    } = newTicket
     try {
       const createdTicket = await Ticket.create({
         user,
         trip,
-        isPaid
+        isPaid,
+        seatId,
+        name,
+        phone,
+        total,
+        email,
+        pickedPoint,
+        droppedPoint
       })
       if (createdTicket) {
         resolve({
@@ -114,5 +157,6 @@ module.exports = {
   updateTicket,
   getDetailsTicket,
   getAllTicket,
-  deleteTicket
+  deleteTicket,
+  getTicketsById
 }

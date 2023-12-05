@@ -1,4 +1,5 @@
 const TicketService = require('../services/TicketService')
+const SeatService = require('../services/SeatService')
 
 const deleteTicket = async (req, res) => {
   try {
@@ -33,14 +34,27 @@ const getAllTicket = async (req, res) => {
 
 const getDetailsTicket = async (req, res) => {
   try {
-    const ticketId = req.params.id
-    if (!ticketId) {
+    const ticketId = req.body
+    const response = await TicketService.getDetailsTicket(ticketId)
+    return res.status(200).json(response)
+  } catch (e) {
+    return res.status(404).json({
+      message: e
+    })
+  }
+}
+
+const getTicketsById = async (req, res) => {
+  try {
+    const userId = req.body.user
+    console.log('fafaf', userId)
+    if (!userId) {
       return res.status(200).json({
         status: 'ERR',
-        message: 'The TicketId is required'
+        message: 'The userId is required'
       })
     }
-    const response = await TicketService.getDetailsTicket(ticketId)
+    const response = await TicketService.getTicketsById(userId)
     return res.status(200).json(response)
   } catch (e) {
     return res.status(404).json({
@@ -67,23 +81,53 @@ const updateTicket = async (req, res) => {
     })
   }
 }
+// api: user: userid
+//      trip: TripId
+//      isPaid: false
+//      seats: danh sách id của ghế mà user này chọn đặt
 
 const createTicket = async (req, res) => {
-  const { user, trip, isPaid } = req.body
+  const {
+    user,
+    trip,
+    isPaid,
+    seats,
+    name,
+    phone,
+    total,
+    email,
+    pickedPoint,
+    droppedPoint
+  } = req.body
   try {
-    const response = await TicketService.createTicket(req.body)
-    return res.status(200).json(response)
+    seats.forEach(async (seat) => {
+      // tạo vé
+      await TicketService.createTicket({
+        user,
+        trip,
+        isPaid,
+        seatId: seat,
+        name,
+        phone,
+        total,
+        email,
+        pickedPoint,
+        droppedPoint
+      })
+      // cập nhật ghế đã đặt
+      await SeatService.updateSeat(seat, { isBooked: true })
+    })
+    return res.status(200).json('OK')
   } catch (error) {
     res.status(404).send(error)
   }
 }
-
-
 
 module.exports = {
   createTicket,
   updateTicket,
   getDetailsTicket,
   getAllTicket,
-  deleteTicket
+  deleteTicket,
+  getTicketsById
 }

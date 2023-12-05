@@ -1,4 +1,6 @@
 const Trip = require('../models/TripModel')
+const Station = require('../models/Station')
+const { ObjectId } = require('mongodb')
 
 const createTrip = (newTrip) => {
   return new Promise(async (resolve, reject) => {
@@ -99,38 +101,30 @@ const deleteTrip = (id) => {
   })
 }
 
-const findTrip = ({ tripIdFrom, tripIdTo, vehicleId, day }) => {
+// fromd
+const findTrip = async ({ fromId, toId, date }) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const checkTripIdFrom = await Trip.find({
-        _id: id
+      // list id stations
+      const fromStations = []
+      const toStations = []
+      // find Staion
+      const stations = await Station.find()
+      stations.forEach((station) => {
+        if (station.province.toString() === fromId)
+          fromStations.push(station._id)
+        if (station.province.toString() === toId) toStations.push(station._id)
       })
-      const checkTripIdTo = await Trip.find({
-        _id: id
-      })
-      const checkVehicleId = await Trip.find({
-        _id: id
-      })
-      const checkDay = await Trip.find({
-        _id: id
+ 
+      const trips = await Trip.find({
+        from: { $in: fromStations },
+        to: { $in: toStations }
       })
 
-      if (
-        checkTripIdFrom === null ||
-        checkTripIdTo === null ||
-        checkVehicleId === null ||
-        checkDay === null
-      ) {
-        resolve({
-          status: 'ERR',
-          message: 'The product is not defined'
-        })
-      }
-
-      await Trip.findById(id)
       resolve({
         status: 'OK',
-        message: 'Delete product success'
+        message: 'SUCCESS',
+        data: trips
       })
     } catch (e) {
       reject(e)
@@ -200,5 +194,6 @@ module.exports = {
   updateTrip,
   getDetailsTrip,
   deleteTrip,
-  getAllTrip
+  getAllTrip,
+  findTrip
 }
