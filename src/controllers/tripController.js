@@ -53,10 +53,8 @@ const getDetailsTrip = async (req, res) => {
 
 const findTrip = async (req, res) => {
   try {
-    console.log(req.body);
     const { fromId, toId, date } = req.body
-
-    const response = await TripService.findTrip({ 
+    const response = await TripService.findTrip({
       fromId,
       toId,
       date

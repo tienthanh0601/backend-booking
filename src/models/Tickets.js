@@ -18,15 +18,19 @@ const ticketSchema = new mongoose.Schema(
     email: {
       type: String
     },
-
     pickedPoint: {
       type: mongoose.Types.ObjectId,
       ref: 'Point'
     },
-
     droppedPoint: {
       type: mongoose.Types.ObjectId,
       ref: 'Point'
+    },
+    timePickUp: {
+      type: Date
+    },
+    timeDropOff: {
+      type: Date
     },
     trip: {
       type: mongoose.Schema.Types.ObjectId,

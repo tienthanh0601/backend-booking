@@ -97,7 +97,9 @@ const createTicket = async (req, res) => {
     total,
     email,
     pickedPoint,
-    droppedPoint
+    droppedPoint,
+    timePickUp,
+    timeDropOff
   } = req.body
   try {
     seats.forEach(async (seat) => {
@@ -112,7 +114,9 @@ const createTicket = async (req, res) => {
         total,
         email,
         pickedPoint,
-        droppedPoint
+        droppedPoint,
+        timePickUp,
+        timeDropOff
       })
       // cập nhật ghế đã đặt
       await SeatService.updateSeat(seat, { isBooked: true })

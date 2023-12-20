@@ -1,4 +1,5 @@
 const Trip = require('../models/TripModel')
+const { parse, format } = require('date-fns')
 const Station = require('../models/Station')
 const { ObjectId } = require('mongodb')
 
@@ -115,12 +116,17 @@ const findTrip = async ({ fromId, toId, date }) => {
           fromStations.push(station._id)
         if (station.province.toString() === toId) toStations.push(station._id)
       })
- 
+
       const trips = await Trip.find({
         from: { $in: fromStations },
-        to: { $in: toStations }
+        to: { $in: toStations },
+        day: {
+          $gte: new Date(date),
+          $lt: new Date(new Date(date).setDate(new Date(date).getDate() + 1))
+        }
       })
 
+      console.log('tìm trip', trips)
       resolve({
         status: 'OK',
         message: 'SUCCESS',

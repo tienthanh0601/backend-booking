@@ -1,4 +1,5 @@
 const Ticket = require('../models/Tickets')
+const SeatModel = require('../models/SeatModel')
 
 const deleteTicket = (id) => {
   return new Promise(async (resolve, reject) => {
@@ -124,7 +125,9 @@ const createTicket = (newTicket) => {
       total,
       email,
       pickedPoint,
-      droppedPoint
+      droppedPoint,
+      timePickUp,
+      timeDropOff
     } = newTicket
     try {
       const createdTicket = await Ticket.create({
@@ -137,7 +140,9 @@ const createTicket = (newTicket) => {
         total,
         email,
         pickedPoint,
-        droppedPoint
+        droppedPoint,
+        timePickUp,
+        timeDropOff
       })
       if (createdTicket) {
         resolve({
